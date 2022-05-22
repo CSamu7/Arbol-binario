@@ -2,13 +2,13 @@ package informatica;
 
 public class ArbolBinario {
 	
-	private Nodo nodoRaiz; //Definimos el nodo raiz del arbol
+	private Nodo nodoRaiz; //Definimos el nodo raiz del arbol, esto nos ayudara para la recursion.
 	
 	public ArbolBinario() { //Creamos un constructor estandar, por si el usuario no quiere definir cuanto va a valer el nodo raíz.
 
 	}; 
 	
-	public ArbolBinario(int numero) { //Creamos otro constructor, por si el usuario quiere definir cuanto va a valer el nodo raiz
+	public ArbolBinario(int numero) { //Creamos otro constructor, por si el usuario quiere definir cuanto va a valer el nodo raiz del arbol.
 		nodoRaiz = new Nodo(numero);
 	}
 
@@ -28,21 +28,21 @@ public class ArbolBinario {
 	}
 	
 	public void insertarNodo(int numero) { //Metodo que usara el usuario para agregar el nodo
-		nodoRaiz = insertarNodo(numero, nodoRaiz); //Aplicamos el metodo de la recursión
+		nodoRaiz = insertarNodo(numero, nodoRaiz); //Aplicamos el metodo de la recursividad
 	}
 	
-	public void mostrarInorden(Nodo nodoRaiz) {
-		if(nodoRaiz != null) {
-			mostrarInorden(nodoRaiz.getNodoIzquierdo()); 
-			System.out.println(""+nodoRaiz.getNumero());
-			mostrarInorden(nodoRaiz.getNodoDerecho());
+	public void mostrarInorden(Nodo nodoRaiz) { //Metodo que usaremos para la recursividad.
+		if(nodoRaiz != null) {	//Si el nodo no esta vacio, que haga lo siguiente:
+			mostrarInorden(nodoRaiz.getNodoIzquierdo()); //Busque de manera recursiva su nodo izquierdo
+			System.out.println(""+nodoRaiz.getNumero()); //Muestre el valor del nodo raiz
+			mostrarInorden(nodoRaiz.getNodoDerecho()); // Busque de manera recursiva su nodo derecho
 		}
 	}
 	
-	public void mostrarInorden() {
+	public void mostrarInorden() { //Metodo que usara el usuario
 		mostrarInorden(nodoRaiz);
 	}
-	
+	//Y repetimos lo mismo para los siguientes formas de procesar el arbol binario, solo cambiando el orden en que se haran.
 	public void mostrarPreorden(Nodo nodoRaiz) {
 		if(nodoRaiz != null) {
 			System.out.println(""+nodoRaiz.getNumero());
@@ -67,22 +67,23 @@ public class ArbolBinario {
 		mostrarPostorden(nodoRaiz);
 	}
 	
-	public boolean buscarNumero(int numero, Nodo nodoRaiz) {
-		if(nodoRaiz == null) {
+	public boolean buscarNumero(int numero, Nodo nodoRaiz) {//Nuevamente, un metodo que nos ayudara a la recursividad.
+		if(nodoRaiz == null) { //Si el nodo esta vacio, que regrese un false.
 			return false;
 		}
-		if(nodoRaiz.getNumero() == numero) {
+		if(nodoRaiz.getNumero() == numero) { // Si encuentra el numero en el nodo raiz, que devuelva un true.
 			return true;
 		}
-		return numero < nodoRaiz.getNumero()
-				? buscarNumero(numero, nodoRaiz.getNodoIzquierdo())
-				: buscarNumero(numero, nodoRaiz.getNodoDerecho());
+		
+		return numero < nodoRaiz.getNumero() //Si el numero es menor que el nodo raiz
+				? buscarNumero(numero, nodoRaiz.getNodoIzquierdo()) // Que lo empiece a buscar por el nodo izquierdo
+				: buscarNumero(numero, nodoRaiz.getNodoDerecho()); // Que lo empiece a buscar por el nodo derecho
 	}
 	
-	public void buscarNumero(int numero) {
-		if(buscarNumero(numero, nodoRaiz)) {
+	public void buscarNumero(int numero) { // Metodo que usara el usuario.
+		if(buscarNumero(numero, nodoRaiz)) { //Si el metodo nos devuelve un true, entonces mandamos este mensaje
 			System.out.println("Se encontro el numero "+numero+" en el arbol"); 
-		}else {
+		}else { // Si el metodo no lo encuentra, que mande este mensaje.
 			System.out.println("No se encontro el numero "+numero+" en el arbol"); 
 		}
 	}
